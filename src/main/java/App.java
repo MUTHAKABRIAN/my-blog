@@ -13,7 +13,7 @@ public class App {
         staticFileLocation("/public");
 
         get("/",(request,response)-> {
-            Map<String,Object>model =new HashMap<String,Object>();
+            Map<String,Object>model =new HashMap<String, Object>();
             return new ModelAndView(model,"index.hbs");
         },new HandlebarsTemplateEngine());
 
@@ -25,7 +25,7 @@ public class App {
         },new HandlebarsTemplateEngine());;
 
         get("/", (request,response) -> {
-            Map<String, Object> model = new HashMap<>();
+            Map<String, Object> model = new HashMap<String, Object>();
             ArrayList<Post> posts = Post.getAll();
             model.put("posts", posts);
             return new ModelAndView(model, "index.hbs");

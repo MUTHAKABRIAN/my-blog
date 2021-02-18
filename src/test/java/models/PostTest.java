@@ -3,7 +3,7 @@ package models;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import java.time.LocalDateTime;
 import static org.junit.Assert.*;
 
 public class PostTest {
@@ -13,6 +13,7 @@ public class PostTest {
         assertEquals("Day 1: Intro", post.getContent());
 
     }
+
     @After
     public void tearDown() throws Exception {
         Post.clearAllPosts();// clear out all posts before each test
@@ -20,9 +21,9 @@ public class PostTest {
 
     @Test
     public void AllPostsAreCorrectlyReturned_true() {
-        Post post =new Post("Day 1:Intro");
-        Post otherPost =new Post ("How to pair successfully");
-        assertEquals(2,Post.getAll().size());
+        Post post = new Post("Day 1:Intro");
+        Post otherPost = new Post("How to pair successfully");
+        assertEquals(2, Post.getAll().size());
     }
 
     @Test
@@ -32,5 +33,21 @@ public class PostTest {
         assertTrue(Post.getAll().contains(post));
         assertTrue(Post.getAll().contains(otherPost));
 
+    }
+
+    @Test
+    public void getPublished_isFalseAfterInstantiation_false() throws Exception {
+        Post myPost = new Post("Day 1: Intro");
+        assertEquals(false, myPost.getPublished()); //should never start as published
+    }
+
+    @Test
+    public void getCreatedAt_instantiatesWithCurrentTime_today() throws Exception {
+        Post myPost = setupNewPost(); //see below
+        assertEquals(LocalDateTime.now().getDayOfWeek(), myPost.getCreatedAt().getDayOfWeek());
+    }
+
+    public Post setupNewPost() {
+        return new Post("Day 1: Intro");
     }
 }
